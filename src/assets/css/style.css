@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* CSS dosyası veya stil etiketi içinde */
+.language-switch-btn {
+    border: 2px solid #fff;
+    padding: 10px 15px;
+    border-radius: 20px; /* Yuvarlatılmış köşeler */
+    color: #fff;
+    background: transparent;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s, transform 0.3s;
+
+  }
+  
+  .language-switch-btn:hover {
+    background-color: #fff;
+    color: #000;
+    transform: scale(1.05); /* Büyüten bir animasyon ekledik */
+  }
+  

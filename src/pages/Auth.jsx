@@ -1,45 +1,43 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { FcGoogle } from "react-icons/fc";
-import { BsGithub } from "react-icons/bs";
 import { auth } from "../firebase";
 import { toast } from "react-toastify";
 import {
-  GithubAuthProvider,
   createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
   signInWithPopup,
 } from "firebase/auth";
 import { GoogleAuthProvider } from "firebase/auth";
 
 const provider = new GoogleAuthProvider();
-const githubProvider = new GithubAuthProvider();
 
 const Auth = () => {
   const [signUp, setSignUp] = useState(true);
   const [authData, setAuthData] = useState({ email: "", password: "" });
-  const [user, setUser] = useState(null); // Kullanıcı bilgilerini saklamak için state
+  const [user, setUser] = useState(null);
 
-  // Sayfa yüklendiğinde Firebase'den kullanıcı bilgilerini al
   useEffect(() => {
+    // Burada onAuthStateChanged içindeki event listener'ı her zaman atayacağız.
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
       if (authUser) {
-        // Kullanıcı giriş yapmışsa, kullanıcı bilgilerini state'e sakla
+        // Kullanıcı varsa, state'i ve localStorage'ı güncelle
         setUser(authUser);
+        localStorage.setItem("authUser", JSON.stringify(authUser));
       } else {
-        // Kullanıcı çıkış yapmışsa, kullanıcı bilgilerini temizle
+        // Kullanıcı yoksa, state'i temizle ve localStorage'dan kaldır
         setUser(null);
+        localStorage.removeItem("authUser");
       }
     });
-
+    
+    // Component unmount olduğunda unsubscribe ol
     return () => {
-      // Temizleme işlevi
       unsubscribe();
     };
   }, []);
+  
 
   const buttonText = signUp ? "Kayıt Ol" : "Giriş Yap";
   const googleButtonText = signUp ? "Kayıt Ol" : "Google ile Giriş Yap";
-  const githubButtonText = signUp ? "Kayıt Ol" : "Github ile Giriş Yap";
 
   const handleChange = (e) => {
     setAuthData({ ...authData, [e.target.name]: e.target.value });
@@ -55,18 +53,28 @@ const Auth = () => {
         );
         const authUser = data.user;
         if (authUser) {
-          // Kullanıcı bilgilerini state'e sakla
           setUser(authUser);
-
-          // Diğer işlemleri yapabilirsiniz
-
+          localStorage.setItem("authUser", JSON.stringify(authUser));
           toast.success("Kayıt başarıyla tamamlandı!", { autoClose: 2500 });
           setTimeout(() => {
             window.location.href = "/";
           }, 2500);
         }
       } else {
-        // Giriş işlemini aynı şekilde ele alabilirsiniz
+        const data = await signInWithEmailAndPassword(
+          auth,
+          authData.email,
+          authData.password
+        );
+        const authUser = data.user;
+        if (authUser) {
+          setUser(authUser);
+          localStorage.setItem("authUser", JSON.stringify(authUser));
+          toast.success("Giriş başarılı!");
+          setTimeout(() => {
+            window.location.href = "/";
+          }, 1000);
+        }
       }
     } catch (error) {
       toast.error(error.message);
@@ -78,40 +86,15 @@ const Auth = () => {
       const data = await signInWithPopup(auth, provider);
       const authUser = data.user;
       if (authUser) {
-        // Kullanıcı bilgilerini state'e sakla
         setUser(authUser);
-
-        // Diğer işlemleri yapabilirsiniz
-
+        localStorage.setItem("authUser", JSON.stringify(authUser));
         toast.success("Giriş başarılı!");
         setTimeout(() => {
           window.location.href = "/";
         }, 1000);
       }
     } catch (error) {
-      const credential = GoogleAuthProvider.credentialFromError(error);
-      toast.error(credential);
-    }
-  };
-
-  const githubLogin = async () => {
-    try {
-      const data = await signInWithPopup(auth, githubProvider);
-      const authUser = data.user;
-      if (authUser) {
-        // Kullanıcı bilgilerini state'e sakla
-        setUser(authUser);
-
-        // Diğer işlemleri yapabilirsiniz
-
-        toast.success("Giriş başarılı!");
-        setTimeout(() => {
-          window.location.href = "/";
-        }, 2000);
-      }
-    } catch (error) {
-      const credential = GithubAuthProvider.credentialFromError(error);
-      toast.error(credential);
+      toast.error(error.message);
     }
   };
 
@@ -149,27 +132,15 @@ const Auth = () => {
               placeholder="Password"
             />
           </div>
-          <div className="flex space-x-4">
-            <button
-              onClick={googleLogin}
-              className="flex items-center bg-white text-gray-700 rounded-md py-2 px-4 border border-gray-300 hover.bg-gray-100 focus:outline-none focus:ring focus.ring-gray-200"
-            >
-              <FcGoogle size={25} className="mr-2" />
-              {`${signUp ? "Google ile" : ""} ${googleButtonText}`}
-            </button>
-            <button
-              onClick={githubLogin}
-              className="flex items-center bg-white text-gray-700 rounded-md py-2 px-4 border border-gray-300 hover.bg-gray-100 focus:outline-none focus:ring focus.ring-gray-200"
-            >
-              <BsGithub size={25} className="mr-2" />
-              {`${signUp ? "Github ile" : ""} ${githubButtonText}`}
-            </button>
-          </div>
-
+          <button
+            onClick={googleLogin}
+            className="flex items-center bg-white text-gray-700 rounded-md py-2 mx-9 px-4 border border-gray-300 hover:bg-gray-100 focus:outline-none focus:ring focus:ring-gray-200"
+          >
+            <FcGoogle size={25} className="mr-2" />
+            {`${signUp ? "Google ile" : ""} ${googleButtonText}`}
+          </button>
           <p onClick={() => setSignUp(!signUp)} className="mt-4 text-gray-600">
-            {signUp
-              ? "Daha önce kayıt oldunuz mu?"
-              : "Kayıt olmak istiyor musunuz?"}{" "}
+            {signUp ? "Daha önce kayıt oldunuz mu?" : "Kayıt olmak istiyor musunuz?"}{" "}
             <a href="#" className="text-blue-500">
               {signUp ? "Giriş yap" : "Kayıt ol"}
             </a>
@@ -179,7 +150,7 @@ const Auth = () => {
           <button
             onClick={authFunc}
             type="submit"
-            className="bg-blue-500 w-full text-white rounded-md py-2 px-4 hover.bg-blue-600 focus:outline-none focus.ring focus.ring-blue-300"
+            className="bg-blue-500 w-full text-white rounded-md py-2 px-4 hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300"
           >
             {buttonText}
           </button>

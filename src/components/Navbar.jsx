@@ -6,7 +6,7 @@ import { auth } from "../firebase"; // Firebase kimlik doğrulama işlemleri iç
 const Navbar = ({ user }) => {
   const [language, setLanguage] = useState("en");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
+  const [loading, setLoading] = useState(true);
   const toggleLanguage = () => {
     if (language === "en") {
       setLanguage("tr");
@@ -19,9 +19,8 @@ const Navbar = ({ user }) => {
   const signOut = async () => {
     try {
       await auth.signOut();
-      // Çıkış yaptıktan sonra sayfayı yenilemek veya başka bir işlem yapmak için
-      // gerekli kodu burada ekleyebilirsiniz.
-      window.location.reload();
+     
+      window.location.href = "/auth";
     } catch (error) {
       console.error("Çıkış yaparken bir hata oluştu:", error);
     }
@@ -46,22 +45,34 @@ const Navbar = ({ user }) => {
                 </a>
               </li>
               <li>
-                <a className="block py-2 ml-6 hover:text-gray-200" href="/development">
+                <a
+                  className="block py-2 ml-6 hover:text-gray-200"
+                  href="/development"
+                >
                   Development
                 </a>
               </li>
               <li>
-                <a className="block py-2 ml-6 hover:text-gray-200" href="/podcast">
+                <a
+                  className="block py-2 ml-6 hover:text-gray-200"
+                  href="/podcast"
+                >
                   Podcast
                 </a>
               </li>
               <li>
-                <a className="block py-2 ml-6 hover:text-gray-200" href="/about">
+                <a
+                  className="block py-2 ml-6 hover:text-gray-200"
+                  href="/about"
+                >
                   About
                 </a>
               </li>
               <li>
-                <a className="block py-2 ml-6 hover:text-gray-200" href="/contact">
+                <a
+                  className="block py-2 ml-6 hover:text-gray-200"
+                  href="/contact"
+                >
                   Contact
                 </a>
               </li>
@@ -88,6 +99,7 @@ const Navbar = ({ user }) => {
                   className="flex items-center hover:text-gray-200"
                 >
                   <BsPersonSquare className="h-8 w-8" />
+                  <span className="ml-3">{user.displayName}</span>
                 </Link>
                 <button
                   onClick={signOut}
@@ -127,7 +139,6 @@ const Navbar = ({ user }) => {
                 Home
               </a>
             </li>
-            
           </ul>
         </div>
       )}

@@ -10,6 +10,7 @@ import Contact from "./pages/Contact";
 import Development from "./pages/Development"; 
 import Info from "./pages/Info"; 
 import Podcast from "./pages/Podcast"; 
+import Profile from "./pages/Profile";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { auth } from "./firebase";
@@ -30,13 +31,10 @@ function App() {
       setIsAuthChecked(true);
     });
   }, []);
-
-  // Bu kontrolü buraya ekleyin:
   if (!isAuthChecked) {
     return (
       <div className="loading-overlay">
         <div className="loading-modal">
-          {/* Burada yükleme ikonu ekleyebilirsiniz. Örneğin bir SVG ya da dışarıdan bir ikon kütüphanesi (FontAwesome, React Icons vb.) kullanabilirsiniz. */}
           <div className="loading-icon"></div>
           Yükleniyor...
         </div>
@@ -74,6 +72,7 @@ function App() {
           <Route path="/blog" element={<Blog />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} /> 
+          <Route path="/profile" element={<Profile />} />
           <Route
             path="/development"
             element={

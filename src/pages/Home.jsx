@@ -5,17 +5,21 @@ const Home = () => {
     <div className="flex justify-center items-start min-h-screen bg-gray-100 pt-20">
       <div className="flex flex-wrap gap-4">
         <div className="w-1/5 bg-white p-4 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
-          <h2 className="text-xl font-semibold mb-4">Temel Bilgiler</h2>
+          <h2 className="text-xl font-semibold mb-4 text-center">
+            Temel Bilgiler
+          </h2>
           <div className="flex justify-center mb-4">
-          <img src="../src/assets/img/html.PNG" />
-            
+            <img
+              src="../src/assets/img/html.PNG"
+              className="w-32 h-32 rounded-full"
+            />
           </div>
           <h3 className="text-lg font-medium mb-4">
-            HTML, CSS, JS Öğrenerek yazılıma adım atabilirsin.
+            Algoritma, HTML, CSS, JS Öğrenerek yazılıma adım atabilirsin.
           </h3>
           <a
             href="#_"
-            className="relative px-5 py-3 overflow-hidden font-medium text-gray-600 bg-gray-100 border border-gray-100 rounded-lg shadow-inner group"
+            className="relative px-5 py-3 overflow-hidden font-medium text-gray-600 bg-gray-100 border border-gray-100 rounded-lg shadow-inner group flex items-center justify-center"
           >
             <span className="absolute top-0 left-0 w-0 h-0 transition-all duration-200 border-t-2 border-gray-600 group-hover:w-full ease"></span>
             <span className="absolute bottom-0 right-0 w-0 h-0 transition-all duration-200 border-b-2 border-gray-600 group-hover:w-full ease"></span>
@@ -32,7 +36,7 @@ const Home = () => {
           <h2 className="text-xl font-semibold mb-4">Programlama Dilleri</h2>
           <div className="flex justify-center mb-4">
             <img
-              src="path_to_image_1"
+              src="../src/assets/img/programming.png"
               alt="Temel Bilgiler Image"
               className="w-32 h-32 rounded-full"
             />
@@ -42,7 +46,7 @@ const Home = () => {
           </h3>
           <a
             href="#_"
-            className="relative px-5 py-3 overflow-hidden font-medium text-gray-600 bg-gray-100 border border-gray-100 rounded-lg shadow-inner group"
+            className="relative px-5 py-3 overflow-hidden font-medium text-gray-600 bg-gray-100 border border-gray-100 rounded-lg shadow-inner group flex items-center justify-center"
           >
             <span className="absolute top-0 left-0 w-0 h-0 transition-all duration-200 border-t-2 border-gray-600 group-hover:w-full ease"></span>
             <span className="absolute bottom-0 right-0 w-0 h-0 transition-all duration-200 border-b-2 border-gray-600 group-hover:w-full ease"></span>
@@ -61,7 +65,7 @@ const Home = () => {
           </h2>
           <div className="flex justify-center mb-4">
             <img
-              src="path_to_image_1"
+              src="../src/assets/img/library.jpg"
               alt="Temel Bilgiler Image"
               className="w-32 h-32 rounded-full"
             />
@@ -71,7 +75,7 @@ const Home = () => {
           </h3>
           <a
             href="#_"
-            className="relative px-5 py-3 overflow-hidden font-medium text-gray-600 bg-gray-100 border border-gray-100 rounded-lg shadow-inner group"
+            className="relative px-5 py-3 overflow-hidden font-medium text-gray-600 bg-gray-100 border border-gray-100 rounded-lg shadow-inner group flex items-center justify-center"
           >
             <span className="absolute top-0 left-0 w-0 h-0 transition-all duration-200 border-t-2 border-gray-600 group-hover:w-full ease"></span>
             <span className="absolute bottom-0 right-0 w-0 h-0 transition-all duration-200 border-b-2 border-gray-600 group-hover:w-full ease"></span>
@@ -88,7 +92,7 @@ const Home = () => {
           <h2 className="text-xl font-semibold mb-4">Veritabanları</h2>
           <div className="flex justify-center mb-4">
             <img
-              src="path_to_image_1"
+              src="../src/assets/img/database.png"
               alt="Temel Bilgiler Image"
               className="w-32 h-32 rounded-full"
             />
@@ -98,7 +102,7 @@ const Home = () => {
           </h3>
           <a
             href="#_"
-            className="relative px-5 py-3 overflow-hidden font-medium text-gray-600 bg-gray-100 border border-gray-100 rounded-lg shadow-inner group"
+            className="relative px-5 py-3 overflow-hidden font-medium text-gray-600 bg-gray-100 border border-gray-100 rounded-lg shadow-inner group flex items-center justify-center"
           >
             <span className="absolute top-0 left-0 w-0 h-0 transition-all duration-200 border-t-2 border-gray-600 group-hover:w-full ease"></span>
             <span className="absolute bottom-0 right-0 w-0 h-0 transition-all duration-200 border-b-2 border-gray-600 group-hover:w-full ease"></span>

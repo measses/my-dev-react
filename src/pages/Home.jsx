@@ -1,15 +1,15 @@
 import React from "react";
-
+import NewsCards from "./NewsCard";
 const Home = () => {
   return (
     <div>
-      <div className="bg-gray-100 text-center py-3">
+      <div className="bg-gray-100 text-center py-5">
         <h1 className="text-4xl font-bold">
           Yazılım Geliştirme
           <div className="w-full border-b-2 border-transparent hover:border-gray-400 transition duration-300 mt-2"></div>
         </h1>
       </div>
-    <div className="flex justify-center items-start min-h-screen bg-gray-100">
+    <div className="flex justify-center items-start min-h-screen pt-4 bg-gray-100">
       <div className="flex flex-wrap gap-5 ml-56">
         <div className="w-1/5 bg-white p-4 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
           <h2 className="text-xl font-semibold mb-4 text-center">
@@ -121,8 +121,16 @@ const Home = () => {
             </span>
           </a>
         </div>
+        <div className="my-8">
+        <h1 className="text-4xl font-bold text-center">
+          Teknoloji Haberleri
+          <div className="w-full border-b-2 border-transparent hover:border-gray-400 transition duration-300 mt-2"></div>
+        </h1>
+        <NewsCards /> 
+      </div>
       </div>
     </div>
+    
     </div>
   );
 };
